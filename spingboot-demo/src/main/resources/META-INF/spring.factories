@@ -1,0 +1,11 @@
+# Initializers
+org.springframework.context.ApplicationContextInitializer=\
+  com.xiaojukeji.springboot.demo.beans.MyApplicationContextInitializer
+
+# Application Listeners
+org.springframework.context.ApplicationListener=\
+  com.xiaojukeji.springboot.demo.beans.MyApplicationListener
+
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.xiaojukeji.springboot.demo.beans.MyAutoConfiguration

@@ -53,6 +53,8 @@ import org.springframework.data.repository.Repository;
 @SpringBootConfiguration
 // 开启自动配置
 @EnableAutoConfiguration
+// 组件扫描（属于spring framework范畴，依赖于的配置类注入bean的机制，
+// see ConfigurationClassPostProcessor ConfigurationClassParser#doProcessConfigurationClass 288)
 @ComponentScan(excludeFilters = { @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
 		@Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })
 public @interface SpringBootApplication {

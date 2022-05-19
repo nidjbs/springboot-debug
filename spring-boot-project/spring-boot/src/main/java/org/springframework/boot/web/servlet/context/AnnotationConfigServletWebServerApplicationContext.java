@@ -70,7 +70,12 @@ public class AnnotationConfigServletWebServerApplicationContext extends ServletW
 	 * {@linkplain #refresh refreshed}.
 	 */
 	public AnnotationConfigServletWebServerApplicationContext() {
+		// 这里会注册annotation相关的后置处理器：
+		// 1 ConfigurationClassPostProcessor(本质是一个BeanFactoryPostProcessor): 用来处理JavaConfig配置类的后置处理器，包括JavaConfig配置类中注解的解析及处理操作
+		// (2) AutowiredAnnotationBeanPostProcessor: 用来处理@Autowired和@Value注解
+		// (3) CommonAnnotationBeanPostProcessor: 提供对JSR-250规范注解的支持@javax.annotation.Resource、@javax.annotation.PostConstruct 和 @javax.annotation.PreDestroy等的支持。
 		this.reader = new AnnotatedBeanDefinitionReader(this);
+		// 为bean定义扫描初始化，这里我们不做深入 scanner是块很复杂的逻辑
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
 

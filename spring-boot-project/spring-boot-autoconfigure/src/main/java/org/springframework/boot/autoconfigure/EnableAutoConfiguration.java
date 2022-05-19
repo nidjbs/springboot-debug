@@ -80,6 +80,7 @@ import org.springframework.core.io.support.SpringFactoriesLoader;
 @Documented
 @Inherited
 @AutoConfigurationPackage
+// 一样依赖于spring framwork 的配置类注入bean的机制，see ConfigurationClassPostProcessor ConfigurationClassParser#processImports
 @Import(AutoConfigurationImportSelector.class)
 public @interface EnableAutoConfiguration {
 

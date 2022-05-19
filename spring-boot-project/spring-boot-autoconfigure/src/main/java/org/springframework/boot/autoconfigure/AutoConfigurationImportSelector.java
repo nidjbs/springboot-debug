@@ -88,7 +88,6 @@ public class AutoConfigurationImportSelector implements DeferredImportSelector, 
 
 	private ResourceLoader resourceLoader;
 
-	//依赖于spring framwork 的配置类注入bean的机制，see ConfigurationClassPostProcessor
 	@Override
 	public String[] selectImports(AnnotationMetadata annotationMetadata) {
 		if (!isEnabled(annotationMetadata)) {

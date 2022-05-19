@@ -130,6 +130,7 @@ public class ServletWebServerApplicationContext extends GenericWebApplicationCon
 	 */
 	@Override
 	protected void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
+		// 处理实现ServletContextAware 的bean
 		beanFactory.addBeanPostProcessor(new WebApplicationContextServletContextAwareProcessor(this));
 		beanFactory.ignoreDependencyInterface(ServletContextAware.class);
 		registerWebApplicationScopes();
@@ -150,6 +151,8 @@ public class ServletWebServerApplicationContext extends GenericWebApplicationCon
 	protected void onRefresh() {
 		super.onRefresh();
 		try {
+			// 创建webserver，web应用的核心，注意此时仅执行了spring的bean factory的后置处理器，未进行bean的生成处理
+			// ServletWebServerFactoryAutoConfiguration.BeanPostProcessorsRegistrar 此处会在创建WebServerFactory bean之前进行自定义配置，所以这里才能拿到我们配置的信息
 			createWebServer();
 		}
 		catch (Throwable ex) {
@@ -160,8 +163,10 @@ public class ServletWebServerApplicationContext extends GenericWebApplicationCon
 	@Override
 	protected void finishRefresh() {
 		super.finishRefresh();
+		// 此处才是真正的启动server，不同的版本 启动的方式不同，但都是这个时机
 		WebServer webServer = startWebServer();
 		if (webServer != null) {
+			// 推送事件
 			publishEvent(new ServletWebServerInitializedEvent(webServer, this));
 		}
 	}
@@ -176,9 +181,12 @@ public class ServletWebServerApplicationContext extends GenericWebApplicationCon
 		WebServer webServer = this.webServer;
 		ServletContext servletContext = getServletContext();
 		if (webServer == null && servletContext == null) {
+			// 拿 ServletWebServerFactory bean，他的注册在ServletWebServerFactoryConfiguration配置中
 			ServletWebServerFactory factory = getWebServerFactory();
+			// 初始化webServer及 WebApplicationContext，此时服务还不可用
 			this.webServer = factory.getWebServer(getSelfInitializer());
 		}
+		// 这个分支应该在使用war 包运行时才不会为null ？
 		else if (servletContext != null) {
 			try {
 				getSelfInitializer().onStartup(servletContext);

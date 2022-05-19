@@ -171,6 +171,7 @@ public class TomcatServletWebServerFactory extends AbstractServletWebServerFacto
 
 	@Override
 	public WebServer getWebServer(ServletContextInitializer... initializers) {
+		// 这里初始化tomcat的各大组件，此时服务还不可用，只做了初始化动作，将配置set给tomcat server
 		if (this.disableMBeanRegistry) {
 			Registry.disableRegistry();
 		}
