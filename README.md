@@ -11,8 +11,6 @@
 上述bean可以理解为一个对象。
 
 # 2、源码走起
-
-debug带注释源码地址：https://github.com/nidjbs/springboot-sound-code  
 需要的自己下下来，maven编译一下即可。  
 预览：
 [![Ob4c2q.png](https://s1.ax1x.com/2022/05/19/Ob4c2q.png)](https://imgtu.com/i/Ob4c2q)
